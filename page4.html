@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สวัสดี</title>
+    <link rel="stylesheet" href="page1.css">
+    <style>
+        .left-box {
+        background-image: url('4.png'); /* รูปภาพพื้นหลัง */
+        background-size: contain; /* ปรับรูปภาพให้พอดีกับพื้นที่ */
+        background-repeat: no-repeat; /* ไม่ให้รูปซ้ำ */
+        background-position: center; /* วางรูปที่กึ่งกลาง */
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        color: #333;
+        
+        overflow: hidden; /* ซ่อนส่วนที่เกิน */
+        }
+    </style>
+    <audio id="sound" src="alert.mp3"></audio>
+</head>
+<body>
+    <header>
+        <button id="menu-toggle" class="menu-button">☰</button>
+        <h1 class="page-title">Sign Language Learning With Machine Learning </h1>
+    </header>
+
+    <nav id="navbar" class="navbar">
+        <ul>
+            <li><a href="index.html">หน้าหลัก</a></li>
+            <li><a href="tutor.html">คู่มือการใช้งาน</a></li>
+
+        </ul>
+    </nav>
+    
+    <main>
+        <div class="top-message">
+            การทำท่าแสดงคำว่าสวัสดี
+        </div>
+
+        <div class="page1-layout">
+            <div class="left-box">
+                ตัวอย่าง
+            </div> 
+            <!-- บล็อกใหญ่ -->
+            <div class="box large-box">
+                <div id="webcam-container">
+
+                </div>
+        </div>
+    
+            <!-- กล่องข้อความ -->
+            <div class="text-box">
+                <h2>การใช้ภาษามือ : </h2>
+                <p>พนมมือให้ปลายนิ้วกลางเเละนิ้วชี้อยู่ที่ปลายจมูกเเล้วก้มลง</p>
+                <div class="text-box">
+                    <button type="button" onclick="init(),playSound()">เริ่มการตรวจ</button>
+                </div>
+        </div>
+        </div>
+    
+        <!-- บล็อกยาวแนวนอน -->
+        <div class="horizontal-box">
+            <div id="label-container"></div>
+        </div>
+    </main>
+    
+
+    <footer>
+        <p>&copy; 2025 YTC. All rights reserved.</p>
+    </footer>
+    <script>
+        function playSound() {
+            document.getElementById('sound').play();
+        }
+
+    </script>
+    <audio id="alertSound">
+        <source src="4.mp3" type="audio/mpeg">
+      </audio>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    <script type="text/javascript">
+        // More API functions here:
+        // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+    
+        // the link to your model provided by Teachable Machine export panel
+        const URL = "https://teachablemachine.withgoogle.com/models/h2EqpizIs/";
+    
+        let model, webcam, labelContainer, maxPredictions;
+let isWebcamInitialized = false; // เพิ่มตัวแปรสถานะ
+
+// Load the image model and setup the webcam
+async function init() {
+    if (isWebcamInitialized) {
+        alert("Webcam is already initialized!");
+        return; // หากเว็บแคมถูกสร้างแล้ว ให้หยุดการทำงานของฟังก์ชัน
+    }
+
+    const modelURL = URL + "model.json";
+    const metadataURL = URL + "metadata.json";
+
+    // load the model and metadata
+    model = await tmImage.load(modelURL, metadataURL);
+    maxPredictions = model.getTotalClasses();
+
+    // Convenience function to setup a webcam
+    const flip = true; // whether to flip the webcam
+    webcam = new tmImage.Webcam(500, 300, flip); // width, height, flip
+    await webcam.setup(); // request access to the webcam
+    await webcam.play();
+    window.requestAnimationFrame(loop);
+
+    // append elements to the DOM
+    document.getElementById("webcam-container").appendChild(webcam.canvas);
+    labelContainer = document.getElementById("label-container");
+    for (let i = 0; i < maxPredictions; i++) { // and class labels
+        labelContainer.appendChild(document.createElement("div"));
+    }
+
+    isWebcamInitialized = true; // ตั้งสถานะว่าเว็บแคมถูกสร้างแล้ว
+}
+
+async function loop() {
+    webcam.update(); // update the webcam frame
+    await predict();
+    window.requestAnimationFrame(loop);
+}
+
+// run the webcam image through the image model
+async function predict() {
+    const prediction = await model.predict(webcam.canvas);
+
+    for (let i = 0; i < maxPredictions; i++) {
+        const probability = (prediction[i].probability * 100).toFixed(2); // เปลี่ยนค่าความน่าจะเป็นเป็น %
+        const className = prediction[i].className;
+
+        // สร้าง HTML สำหรับหลอดเปอร์เซ็นต์
+        labelContainer.childNodes[i].innerHTML = `
+            <div style="margin-bottom: 10px;">
+                <span>${className}</span>
+                <div style="background: #e0e0e0; border-radius: 10px; height: 20px; width: 100%; overflow: hidden;">
+                    <div style="background: #4caf50; height: 100%; width: ${probability}%;"></div>
+                </div>
+                <span>${probability}%</span>
+            </div>
+        `;
+        if (probability >=80 && className == "Greeting")
+        {
+            document.getElementById("alertSound").play();
+                  isPlaying = true; // ป้องกันเสียงเล่นซ้ำ
+        
+        }
+    }
+}
+    </script>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

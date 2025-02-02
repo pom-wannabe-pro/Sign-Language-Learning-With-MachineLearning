@@ -1,0 +1,253 @@
+
+@font-face {
+    font-family: ml;
+    src: url(NotoSansThaiLooped-Regular.ttf);
+ }
+ * {
+   
+    font-family: ml;
+}
+
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* Header Layout */
+header {
+    background-color: #333;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: center; /* จัดให้อยู่ตรงกลาง */
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1100;
+}
+
+.menu-button {
+    position: absolute;
+    left: 20px; /* จัดปุ่มเมนูให้อยู่ทางซ้าย */
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.page-title {
+    font-size: 24px;
+    margin: 0;
+}
+
+
+
+/* Navbar Styling */
+.navbar {
+    position: fixed;
+    left: 0;
+    top: 50px;
+    height: calc(100% - 50px);
+    width: 250px;
+    background-color: #555;
+    color: white;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+.navbar.active {
+    transform: translateX(0);
+}
+
+.navbar ul {
+    list-style: none;
+    padding: 20px;
+}
+
+.navbar li {
+    margin: 20px 0;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* Main Content */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1; /* ดัน footer ลง */
+    padding: 80px 20px 20px;
+    margin-top: 60px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    position: relative; /* ป้องกันทับเนื้อหา */
+    /* width: 100%; */
+}
+
+
+
+/* Layout สำหรับ Page1 */
+.page1-layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 80px 20px; /* เว้นระยะห่างจาก header */
+}
+
+/* กล่องใหญ่ */
+.large-box {
+    width: 500px;
+    height: 300px;
+    background-color: #4CAF50;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+/* กล่องข้อความ */
+.text-box {
+    max-width: 300px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.text-box h2 {
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.text-box p {
+    margin: 10px 0;
+    color: #555;
+}
+
+.text-box a {
+    color: #2196F3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.text-box a:hover {
+    text-decoration: underline;
+}
+
+
+/* บล็อกยาวแนวนอน */
+/* แก้ไขการจัดเรียงใน page1-layout */
+.page1-layout {
+    display: flex;
+    flex-direction: row; /* ให้บล็อกใหญ่และกล่องข้อความจัดเรียงแบบแนวนอน */
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 80px 20px; /* เพิ่มระยะห่างจาก header */
+    margin-bottom: 20px; /* เพิ่มระยะห่างข้างล่าง */
+}
+
+/* บล็อกยาวแนวนอน */
+.horizontal-box {
+    width: 100%; /* ใช้เต็มความกว้างของหน้า */
+    max-width: 800px; /* จำกัดความกว้างสูงสุด */
+    margin: 0 auto 20px auto; /* จัดให้อยู่ตรงกลางและเพิ่มระยะห่างข้างล่าง */
+    background-color: #3498db; /* สีพื้นหลัง */
+    color: white; /* สีข้อความ */
+    display: flex; /* ใช้ Flexbox สำหรับจัดข้อความ */
+    justify-content: center; /* จัดข้อความให้อยู่กลางในแนวนอน */
+    align-items: center; /* จัดข้อความให้อยู่กลางในแนวตั้ง */
+    font-size: 20px;
+    border-radius: 8px; /* มุมโค้งมน */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* เพิ่มเงา */
+    text-align: center;
+    box-sizing: border-box; /* ควบคุมขนาด padding */
+    padding: 10px; /* เพิ่มพื้นที่ภายในบล็อก */
+}
+
+/* เอฟเฟกต์ Hover */
+.horizontal-box:hover {
+    background-color: #2980b9; /* เปลี่ยนสีเมื่อ Hover */
+    transform: translateY(-5px); /* ยกขึ้นเล็กน้อยเมื่อ Hover */
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+
+.top-message {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    
+    border-radius: 8px;
+    color: #333; /* สีข้อความ */
+    text-align: center; /* จัดข้อความให้อยู่ตรงกลาง */
+    padding: 20px 20px; /* เพิ่มพื้นที่ภายใน */
+    font-size: 24px; /* ขนาดตัวอักษร */
+    font-weight: bold; /* ตัวหนา */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* เพิ่มเงา */
+    margin: 0; /* ลบระยะขอบออก */
+    width: 100%; /* ใช้เต็มความกว้างของหน้า */
+    box-sizing: border-box; /* ทำให้ padding ไม่เพิ่มขนาดของกล่อง */
+}
+.left-box {
+    width: 300px; /* ปรับขนาดให้เหมาะสม */
+    height: 300px;
+  
+    color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    font-size: 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .page1-layout {
+        flex-direction: column; /* เปลี่ยนจากแนวนอนเป็นแนวตั้ง */
+        align-items: center;
+    }
+
+    .left-box, .large-box, .text-box {
+        width: 90%; /* ปรับให้แสดงเต็มหน้าจอ */
+    }
+
+    .menu-button {
+        left: 10px; /* ลดระยะห่างปุ่มเมนู */
+    }
+
+    .navbar {
+        width: 200px; /* ลดขนาดแถบเมนู */
+    }
+    
+    
+}
